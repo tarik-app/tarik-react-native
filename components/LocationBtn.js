@@ -1,14 +1,9 @@
 import React from 'react'
-import { StyleSheet, Text, View, Button, SafeAreaView, FlatList, TouchableHighlight, ScrollView  } from 'react-native';
+import { StyleSheet, Text, View, Button, TouchableHighlight, ScrollView  } from 'react-native';
 
 export default function LocationBtn({title}) {
   return(
-    <TouchableHighlight
-     style={styles.location}
-     onPress={() => alert(title)}
-    >
       <Text>{title}</Text>
-    </TouchableHighlight>
   )
 }
 

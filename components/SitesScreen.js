@@ -8,7 +8,12 @@ export default function SitesScreen({ navigation }) {
   // get the place name and map to Location btn component
   const place_name = data['data'].map((item) => {
     return (
-        <LocationBtn key={item['id']}title={item['title']} />
+      <TouchableHighlight
+     style={styles.location}
+     onPress={() => navigation.navigate('Question')}
+    >
+        <LocationBtn key={item['id']}title={item['title']} />  
+     </TouchableHighlight>
     )
   })
 
@@ -35,6 +40,12 @@ const styles = StyleSheet.create({
     borderColor: 'green',
     borderWidth: 3,
     padding: 10,
+    width: '100%'
+  },
+  location: {
+    padding: 20,
+    backgroundColor: 'tomato',
+    margin: 1,
     width: '100%'
   }
 })
