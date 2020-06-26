@@ -1,10 +1,20 @@
-import { StyleSheet, Text, View, Button, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View, Button, SafeAreaView, Image } from 'react-native';
 import React from 'react';
 
-export default function QuestionScreen({ navigation }) {
+// currently displays title, description and image on the question screen
+export default function QuestionScreen({ route, navigation }) {
+
+  const {item} = route.params //parameter passed down from sites screen
   return (
       <SafeAreaView style={styles.question}>
-          <Text>Question Page</Text>
+          <Text>You chose {item.title}</Text>
+          <Text>Desc: {item.description}</Text>
+          <Image 
+            style={styles.image}
+            source={{
+              uri: item.image,
+            }}
+          />
       </SafeAreaView>
   );
 }
@@ -16,5 +26,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderWidth: 3,
     borderColor: 'blue'
+  },
+  image: {
+    width: 60,
+    height: 60
   }
 })

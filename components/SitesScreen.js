@@ -9,10 +9,10 @@ export default function SitesScreen({ navigation }) {
   const place_name = data['data'].map((item) => {
     return (
       <TouchableHighlight
-     style={styles.location}
-     onPress={() => navigation.navigate('Question')}
-    >
-        <LocationBtn key={item['id']}title={item['title']} />  
+        style={styles.location}
+        onPress={() => navigation.navigate('Question', {item})}
+      >
+        <LocationBtn key={item['id']} title={item.title} />  
      </TouchableHighlight>
     )
   })
