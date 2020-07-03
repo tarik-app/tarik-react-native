@@ -10,7 +10,7 @@ export default function HomeScreen({ navigation }) {
           style={styles.image}
           source= {require('../assets/tarik-logo.png')}
         />
-        
+
         {/* button play */}
         <TouchableHighlight style = {styles.playBtn} onPress= {() => navigation.navigate('Sites')}> 
           <Text style = {styles.btnText}>
@@ -26,11 +26,11 @@ const styles = StyleSheet.create({
     flex: 1, 
     alignItems: 'center', 
     justifyContent: 'center',
-    // borderWidth: 3,
     backgroundColor: '#f2e1e8'
   },
   welcome : {
-    fontSize: 30
+    fontSize: 30,
+    fontWeight: '300'
   },
   playBtn : {
     marginTop: 50,

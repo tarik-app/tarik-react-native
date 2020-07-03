@@ -43,8 +43,16 @@ const styles = StyleSheet.create({
   location: {
     padding: 20,
     backgroundColor: '#B90551',
-    margin: 1,
-    width: '100%'
+    margin: 5,
+    width: '100%',
+    borderRadius: 5,
+    shadowColor: "#000000",
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 1,
+      width: 1
+    }
   },
   text: {
     marginTop: 30,

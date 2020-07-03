@@ -24,14 +24,12 @@ export default function QuestionScreen({ route, navigation }) {
 
   return (
       <SafeAreaView style={styles.question}>
-          <Text>You chose {item.title}</Text>
+          <Text>You have picked {item.title}!</Text>
           <Text>What is this site known for?</Text>
           <ScrollView>
             {choices}
           </ScrollView>
           <Button title='Submit Answer' onPress= {() => navigation.navigate('Answer', {answer: item.description === check})}/>
-          {/* {console.log(item.description === check)} */}
-
           {/* <Image 
             style={styles.image}
             source={{
@@ -49,8 +47,9 @@ const styles = StyleSheet.create({
     flex: 1, 
     alignItems: 'center', 
     justifyContent: 'center',
-    borderWidth: 3,
-    borderColor: 'blue'
+    backgroundColor: '#f2e1e8'
+    // borderWidth: 3,
+    // borderColor: 'blue'
   },
   image: {
     width: 60,
