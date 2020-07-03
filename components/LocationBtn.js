@@ -3,15 +3,15 @@ import { StyleSheet, Text, View, Button, TouchableHighlight, ScrollView  } from 
 
 export default function LocationBtn({title}) {
   return(
-      <Text>{title}</Text>
+      <Text style={styles.location}>{title}</Text>
   )
 }
 
 const styles = StyleSheet.create({
   location: {
-    padding: 20,
-    backgroundColor: 'tomato',
     margin: 1,
-    width: '100%'
+    width: '100%',
+    color: '#fff',
+    fontSize: 20
   }
 })

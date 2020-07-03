@@ -16,7 +16,7 @@ export default function App() {
         initialRouteName='Tarik'
         screenOptions={{
           headerStyle: {
-            backgroundColor: '#F1E7EB',
+            backgroundColor: '#f2e1e8',
           },
           headerTintColor: '#B90551',
           headerTitleStyle: {

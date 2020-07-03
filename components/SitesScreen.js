@@ -19,7 +19,7 @@ export default function SitesScreen({ navigation }) {
 
   return (
       <SafeAreaView style={styles.safearea}>
-          <Text>Here are nearby tourists sites</Text>
+          <Text style={styles.text}>Here are nearby tourists sites</Text>
           <ScrollView style={styles.scroll}>
             {place_name}
           </ScrollView>
@@ -32,20 +32,23 @@ const styles = StyleSheet.create({
     flex: 1, 
     alignItems: 'center', 
     justifyContent: 'center',
-    borderWidth: 3,
-    borderColor: 'blue'
+    backgroundColor: '#f2e1e8'
   },
   scroll: {
     flex: 1,
-    borderColor: 'green',
-    borderWidth: 3,
     padding: 10,
-    width: '100%'
+    width: '100%',
+    backgroundColor: '#f2e1e8'
   },
   location: {
     padding: 20,
-    backgroundColor: 'tomato',
+    backgroundColor: '#B90551',
     margin: 1,
     width: '100%'
+  },
+  text: {
+    marginTop: 30,
+    fontSize: 25,
+    fontWeight: "300"
   }
 })

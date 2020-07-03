@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Button, SafeAreaView, TouchableHighlight } from 'react-native';
+import { StyleSheet, Text, View, Image, SafeAreaView, TouchableHighlight } from 'react-native';
 import React from 'react';
 
 export default function HomeScreen({ navigation }) {
@@ -6,7 +6,11 @@ export default function HomeScreen({ navigation }) {
 
       <SafeAreaView style={styles.home}>
         <Text style={styles.welcome}>Welcome!</Text>
-
+        <Image 
+          style={styles.image}
+          source= {require('../assets/tarik-logo.png')}
+        />
+        
         {/* button play */}
         <TouchableHighlight style = {styles.playBtn} onPress= {() => navigation.navigate('Sites')}> 
           <Text style = {styles.btnText}>
@@ -23,7 +27,7 @@ const styles = StyleSheet.create({
     alignItems: 'center', 
     justifyContent: 'center',
     // borderWidth: 3,
-    backgroundColor: '#F1E7EB'
+    backgroundColor: '#f2e1e8'
   },
   welcome : {
     fontSize: 30
