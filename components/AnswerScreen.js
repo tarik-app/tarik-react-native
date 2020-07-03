@@ -10,7 +10,7 @@ export default function AnswerScreen({ navigation, route }) {
       <SafeAreaView>
           <Text>Answer Page</Text>
           <Text style={answerStyle}>{answerText}</Text>
-          <Button title='Go Home' onPress= {() => navigation.navigate('Home')}/>
+          <Button title='Go Home' onPress= {() => navigation.navigate('Tarik')}/>
       </SafeAreaView>
 
   );

@@ -38,7 +38,7 @@ export default function QuestionScreen({ route, navigation }) {
               uri: item.image,
             }}
           /> */}
-          <Button title='Go to Home' onPress={() => navigation.navigate('Home')} />
+          <Button title='Go to Home' onPress={() => navigation.navigate('Tarik')} />
           
       </SafeAreaView>
   );

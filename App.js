@@ -13,19 +13,19 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator 
-        initialRouteName='Home'
+        initialRouteName='Tarik'
         screenOptions={{
           headerStyle: {
-            backgroundColor: '#f4511e',
+            backgroundColor: '#F1E7EB',
           },
-          headerTintColor: '#fff',
+          headerTintColor: '#B90551',
           headerTitleStyle: {
             fontWeight: 'bold',
           },
         }}
       >
         <Stack.Screen
-          name='Home' 
+          name='Tarik' 
           component={HomeScreen}  
         />
         <Stack.Screen
