@@ -68,7 +68,8 @@ const styles = StyleSheet.create({
     borderColor: 'black'
   },
   submitBtn : {
-    marginTop: 50,
+    marginLeft: 190,
+    marginTop: 40,
     marginBottom: 25,
     display: 'flex',
     justifyContent: 'center',
