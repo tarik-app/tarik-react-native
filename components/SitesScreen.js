@@ -1,7 +1,8 @@
-import { StyleSheet, Text, View, Button, SafeAreaView, FlatList, TouchableHighlight, ScrollView  } from 'react-native';
+import { StyleSheet, Text, Button, SafeAreaView, TouchableHighlight, ScrollView  } from 'react-native';
 import React from 'react';
 import LocationBtn from './LocationBtn'
 import data from '../data.json'
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default function SitesScreen({ navigation }) {
 
@@ -12,8 +13,17 @@ export default function SitesScreen({ navigation }) {
         style={styles.location}
         onPress={() => navigation.navigate('Question', {item})}
       >
-        <LocationBtn key={item['id']} title={item.title} />  
-     </TouchableHighlight>
+        <Icon.Button
+          // style={styles.location}
+          // iconStyle = {styles.location}
+          name="location-arrow"
+          backgroundColor="#B90551"
+          onPress={() => navigation.navigate('Question', {item})}
+        >
+          {item.title}
+        </Icon.Button>
+        {/* <LocationBtn key={item['id']} title={item.title} />   */}
+      </TouchableHighlight>
     )
   })
 

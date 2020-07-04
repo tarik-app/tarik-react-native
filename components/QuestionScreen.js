@@ -1,4 +1,4 @@
-import { StyleSheet, Text, Button, SafeAreaView, Image, ScrollView  } from 'react-native';
+import { StyleSheet, Text, Button, SafeAreaView,TouchableHighlight, ScrollView  } from 'react-native';
 import React, {useState} from 'react';
 import data from '../data.json'
 import { CheckBox } from 'react-native-elements'
@@ -15,6 +15,8 @@ export default function QuestionScreen({ route, navigation }) {
         title={item.description}
         checkedIcon='dot-circle-o'
         uncheckedIcon='circle-o'
+        containerStyle={styles.radiobtn}
+        checkedColor='#B90551'
         // to make only one item checked...
         checked={check === item.description}
         onPress = {() => setCheck(item.description)}
@@ -24,20 +26,20 @@ export default function QuestionScreen({ route, navigation }) {
 
   return (
       <SafeAreaView style={styles.question}>
-          <Text>You have picked {item.title}!</Text>
-          <Text>What is this site known for?</Text>
+          <Text style={styles.placename}>You have chosen {item.title}!</Text>
+          <Text style={styles.quest}>What is this site known for?</Text>
           <ScrollView>
             {choices}
           </ScrollView>
-          <Button title='Submit Answer' onPress= {() => navigation.navigate('Answer', {answer: item.description === check})}/>
-          {/* <Image 
-            style={styles.image}
-            source={{
-              uri: item.image,
-            }}
-          /> */}
-          <Button title='Go to Home' onPress={() => navigation.navigate('Tarik')} />
-          
+          <TouchableHighlight
+            style={styles.submitBtn}
+            onPress= {() => navigation.navigate('Answer', {answer: item.description === check})}
+          >
+            <Text style={styles.submitTxt}>
+              Submit
+            </Text>
+          </TouchableHighlight>
+          {/* <Button title='Submit Answer' onPress= {() => navigation.navigate('Answer', {answer: item.description === check})}/>    */}
       </SafeAreaView>
   );
 }
@@ -48,11 +50,36 @@ const styles = StyleSheet.create({
     alignItems: 'center', 
     justifyContent: 'center',
     backgroundColor: '#f2e1e8'
-    // borderWidth: 3,
-    // borderColor: 'blue'
   },
-  image: {
-    width: 60,
-    height: 60
+  placename: {
+    marginTop: 30,
+    fontSize: 25,
+    fontWeight: '300'
+  },
+  quest: {
+    marginTop: 40,
+    fontSize: 25,
+    fontWeight: '300',
+    color: '#B90551'
+  },
+  radiobtn: {
+    width: 350,
+    backgroundColor: '#f2e1e8',
+    borderColor: 'black'
+  },
+  submitBtn : {
+    marginTop: 50,
+    marginBottom: 25,
+    display: 'flex',
+    justifyContent: 'center',
+    borderRadius: 50,
+    width: 150,
+    height: 70,
+    backgroundColor: '#B90551',
+    alignItems: 'center', 
+  },
+  submitTxt: {
+    color: '#fff',
+    fontSize: 20
   }
 })
