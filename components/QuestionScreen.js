@@ -33,13 +33,12 @@ export default function QuestionScreen({ route, navigation }) {
           </ScrollView>
           <TouchableHighlight
             style={styles.submitBtn}
-            onPress= {() => navigation.navigate('Answer', {answer: item.description === check})}
+            onPress= {() => navigation.navigate('Answer', {answer: item.description === check, desc: item.description})}
           >
             <Text style={styles.submitTxt}>
               Submit
             </Text>
           </TouchableHighlight>
-          {/* <Button title='Submit Answer' onPress= {() => navigation.navigate('Answer', {answer: item.description === check})}/>    */}
       </SafeAreaView>
   );
 }

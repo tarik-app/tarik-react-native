@@ -8,6 +8,7 @@ import SitesScreen from './components/SitesScreen'
 import QuestionScreen from './components/QuestionScreen'
 import AnswerScreen from './components/AnswerScreen'
 
+
 const Stack = createStackNavigator();
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
           headerTintColor: '#B90551',
           headerTitleStyle: {
             fontWeight: 'bold',
+            
           },
         }}
       >

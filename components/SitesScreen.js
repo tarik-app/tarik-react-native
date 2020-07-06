@@ -3,8 +3,11 @@ import React from 'react';
 import LocationBtn from './LocationBtn'
 import data from '../data.json'
 import Icon from 'react-native-vector-icons/FontAwesome';
+import axios from 'axios';
 
 export default function SitesScreen({ navigation }) {
+  // create the websocket here???
+  // and get the data from calling the route and display it(list of locations with their data) here...
 
   // get the place name and map to Location btn component
   const place_name = data['data'].map((item) => {
@@ -12,6 +15,7 @@ export default function SitesScreen({ navigation }) {
       <TouchableHighlight
         style={styles.location}
         onPress={() => navigation.navigate('Question', {item})}
+        // pass the data we get for each individual item to the questions page
       >
         <Icon.Button
           // style={styles.location}

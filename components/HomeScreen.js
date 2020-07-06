@@ -15,6 +15,8 @@ export default function HomeScreen({ navigation }) {
 
         <Text style={styles.text}>Learn as you go</Text>
         {/* button play */}
+        {/* when play is clicked, activate websocket,  */}
+        
         <TouchableHighlight style = {styles.playBtn} onPress= {() => navigation.navigate('Sites')}> 
           <Text style = {styles.btnText}>
            PLAY
@@ -52,7 +54,6 @@ const styles = StyleSheet.create({
   logo: {
     display: 'flex',
     flexDirection: 'row',
-    alignItems: 'baseline'
   },
   image: {
     width: 70,
