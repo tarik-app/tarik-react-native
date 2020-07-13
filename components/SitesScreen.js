@@ -93,12 +93,12 @@ export default class SitesScreen extends React.Component  {
         //the title of th place
         let place_names = parsed.map((place, index) => {
           const title = place.query.pages[places_id[index]].title
-          const desc = place.query.pages[places_id[index]].extract
+          const description = place.query.pages[places_id[index]].extract
           return (
             // <Text>{title}</Text>
             <TouchableHighlight
               style={styles.location}
-              onPress={() => navigation.navigate('Question', {item})}
+              onPress={() => this.props.navigation.navigate('Question', {title, description, parsed, places_id})}
               // pass the data we get for each individual item to the questions page
             >
               <Icon.Button
@@ -106,7 +106,7 @@ export default class SitesScreen extends React.Component  {
                 // iconStyle = {styles.location}
                 name="location-arrow"
                 backgroundColor="#B90551"
-                onPress={() => navigation.navigate('Question', {item})}
+                onPress={() => this.props.navigation.navigate('Question', {title, description, parsed, places_id})}
               >
                 {title}
               </Icon.Button>
@@ -171,8 +171,6 @@ export default class SitesScreen extends React.Component  {
           <Text style={styles.text}>Here are nearby tourists sites</Text>
           <ScrollView style={styles.scroll}>
             {this.state.place_names}
-            <Text>in site screen</Text>
-            <Text>{direction.latitude}</Text>
           </ScrollView>
       </SafeAreaView>
     );

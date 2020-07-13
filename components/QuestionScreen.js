@@ -7,33 +7,36 @@ import { CheckBox } from 'react-native-elements'
 export default function QuestionScreen({ route, navigation }) {
   const [check, setCheck] = useState(1); 
 
-  const {item} = route.params //parameter passed down from sites screen
+  const {title, description, parsed, places_id} = route.params //parameter passed down from sites screen
   //loop over data description and make checkboxes
-  const choices = data['data'].map((item) => {
+  
+  const choices = parsed.map((place, index) => {
+    const title = place.query.pages[places_id[index]].title
+    const desc = place.query.pages[places_id[index]].extract
     return(
       <CheckBox
-        title={item.description}
+        title={desc}
         checkedIcon='dot-circle-o'
         uncheckedIcon='circle-o'
         containerStyle={styles.radiobtn}
         checkedColor='#B90551'
         // to make only one item checked...
-        checked={check === item.description}
-        onPress = {() => setCheck(item.description)}
+        checked={check === desc}
+        onPress = {() => setCheck(desc)}
       />
     )
   })
 
   return (
       <SafeAreaView style={styles.question}>
-          <Text style={styles.placename}>You have chosen {item.title}!</Text>
+          <Text style={styles.placename}>You have chosen {title}!</Text>
           <Text style={styles.quest}>What is this site known for?</Text>
           <ScrollView>
             {choices}
           </ScrollView>
           <TouchableHighlight
             style={styles.submitBtn}
-            onPress= {() => navigation.navigate('Answer', {answer: item.description === check, desc: item.description})}
+            onPress= {() => navigation.navigate('Answer', {answer: description === check, desc: description})}
           >
             <Text style={styles.submitTxt}>
               Submit
