@@ -17,7 +17,12 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "uses location",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "always use location",
+        "NSLocationAlwaysUsageDescription": "using location"
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
