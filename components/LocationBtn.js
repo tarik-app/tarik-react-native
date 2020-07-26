@@ -18,7 +18,6 @@ export default function LocationBtn({title}) {
         <Icon.Button
           name="map-o"
           backgroundColor="#B90551"
-          // onPress={this.loginWithFacebook}
         >
           {title}
         </Icon.Button>

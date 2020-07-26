@@ -22,29 +22,25 @@ export default function HomeScreen({ navigation }) {
         {/* when play is clicked, activate websocket,  */}
 
         <TouchableHighlight style = {styles.playBtn} onPress= {() => {
-          // if (navigator.geolocation) {
-            // navigator.geolocation.watchPosition(this.showPosition);
               navigator.geolocation.getCurrentPosition((position) => {
-                // if (position.coords.latitude !== this.state.latitude || position.coords.longitude !== this.state.longitude) {
-                // console.log(position.coords.latitude)
-                // console.log(position.coords.longitude)
-                // {latitude: position.coords.latitude, longitude: position.coords.longitude}
-                // const location = JSON.stringify(position)
+   
                 setDirection({latitude: position.coords.latitude, longitude: position.coords.longitude})
                 // console.log(this.state.longitude)
                 // console.log(this.state.latitude)
                 // console.log('home screen direction')
-                
+                console.log('in navigation async', direction)
+
+                  navigation.navigate('Sites', {direction})
                 }   
               )
             // } else { 
             //   console.log('what the heck')
             //   return "Geolocation is not supported by this browser.";
             // }
-          console.log(direction)
-
-          navigation.navigate('Sites', {direction})}
+          
+        }
         }> 
+
           <Text style = {styles.btnText}>
            PLAY
           </Text>

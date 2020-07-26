@@ -9,15 +9,17 @@ export default class SitesScreen extends React.Component  {
   // and get the data from calling the route and display it(list of locations with their data) here...
   constructor(props){
     super(props)
+    const {direction} = this.props.route.params
+    const {latitude, longitude} = direction
     this.state = {
       data: null,
-      isLoading: false,
-      latitude: 0,
-      longitude: 0,
+      isLoading: false, //to check if data is still being loaded or already loaded
+      latitude,
+      longitude,
       locations : [],
       place_names : []
     }
-    const {direction} = this.props.route.params
+    console.log('sitescreen', latitude, longitude)
   } //props.navigation
     // ({ navigation })
     
@@ -27,45 +29,22 @@ export default class SitesScreen extends React.Component  {
   
 
   // get the place name and map to Location btn component
-  async componentDidMount() {
-     // get current position and save it in state
-    //  if (navigator.geolocation) {
-    //   // navigator.geolocation.watchPosition(this.showPosition);
-    //     navigator.geolocation.getCurrentPosition((position) => {
-    //       if (position.coords.latitude !== this.state.latitude || position.coords.longitude !== this.state.longitude) {
-    //         console.log(position.coords.latitude)
-    //         console.log(position.coords.longitude)
-    //         this.setState({ latitude: position.coords.latitude, longitude: position.coords.longitude})
-    //         console.log(this.state.longitude)
-    //         console.log(this.state.latitude)
-    //       }   
-    //     });
-    //   } else { 
-    //     console.log('what the heck')
-    //     return "Geolocation is not supported by this browser.";
-    //   }
-
-    const endpoint = "https://41b53c281efe.ngrok.io/location";
+  async loadLocationData() {
+    this.setState({isLoading : true}) //while it's loading the location data
+    console.log('line 34 isLoading is', this.state.isLoading)
+    const endpoint = " https://06c68b06a13a.ngrok.io/location";
     console.log('in site screen')
-   
-    
-    // const {direction} = this.props.route.params
+
     // change the coords to a JSON object
-    // let coords = JSON.stringify(direction)
-    let latitude = direction.latitude
-    let longitude = direction.longitude
     let coords = JSON.stringify({
-      latit: latitude,
-      longi: longitude
+      latit: this.state.latitude,
+      longi: this.state.longitude
     })
-    // console.log(coords)
+    console.log('coords',coords)
     // console.log(coords['latitude'])
     
     console.log('direction from home screen')
-    // console.log(direction)
-    // console.log('line 41 lat and long')
-    // console.log(this.state.latitude)
-    // console.log(this.state.longitude)
+  
     await axios({
       method: 'post',
       url: endpoint,
@@ -73,6 +52,10 @@ export default class SitesScreen extends React.Component  {
       headers: {'Content-Type': 'application/json' }
       })
       .then((response) => {
+        this.setState({isLoading: false}, () => {
+          console.log('after loading the data, line 56 isLoading is',this.state.isLoading)
+        }) //once you get data, change isLoading
+
         //handle success
         let data = response.data
         // // loops through the response array and parses each into json data
@@ -85,13 +68,11 @@ export default class SitesScreen extends React.Component  {
         let places_id = parsed.map((place) => {
           return Object.keys(place.query.pages)
         })
-       
-        // console.log(parsed)
-        // console.log(places_id)
 
         // loop over the parsed data and apply the keys to get
         //the title of th place
         let place_names = parsed.map((place, index) => {
+          console.log(place)
           const title = place.query.pages[places_id[index]].title
           const description = place.query.pages[places_id[index]].extract
           return (
@@ -124,48 +105,16 @@ export default class SitesScreen extends React.Component  {
         //handle error
         console.log(response);
       });
-
-
-
   }
 
-  // componentWillUnmount() {
+  componentDidMount() {
+    this.setState({isLoading : true}, () => {
+      console.log('line 113 isLoading is', this.state.isLoading)
+    }) //while it's loading the location data
+    this.loadLocationData() //when the component mounts, load the location data
+  }
 
-  // }
-
-  // showPosition = (position) => {
-  //   //to protect from infinite loop of calling state
-  //   if (position.coords.latitude !== this.state.latitude || position.coords.longitude !== this.state.longitude) {
-  //     console.log(position.coords.latitude)
-  //     console.log(position.coords.longitude)
-  //     this.setState({ latitude: position.coords.latitude, longitude: position.coords.longitude})
-  //     console.log(this.state.longitude)
-  //     console.log(this.state.latitude)
-  //   }     
-  // }
-
-  // const place_names = data['data'].map((item) => {
-  //   return (
-  //     <TouchableHighlight
-  //       style={styles.location}
-  //       onPress={() => navigation.navigate('Question', {item})}
-  //       // pass the data we get for each individual item to the questions page
-  //     >
-  //       <Icon.Button
-  //         // style={styles.location}
-  //         // iconStyle = {styles.location}
-  //         name="location-arrow"
-  //         backgroundColor="#B90551"
-  //         onPress={() => navigation.navigate('Question', {item})}
-  //       >
-  //         {item.title}
-  //       </Icon.Button>
-  //       {/* <LocationBtn key={item['id']} title={item.title} />   */}
-  //     </TouchableHighlight>
-  //   )
-  // })
-
-  render(){
+  render(){ 
     return (
       <SafeAreaView style={styles.safearea}>
           <Text style={styles.text}>Here are nearby tourists sites</Text>
