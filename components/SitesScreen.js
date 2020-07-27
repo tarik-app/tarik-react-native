@@ -18,7 +18,7 @@ export default class SitesScreen extends React.Component  {
       longitude,
       locations : [],
       place_names : [],
-      locationData: null,  // Used to hold data loaded from the weather API
+      locationData: null,  // Used to hold data loaded from the location API/backend
     }
     console.log('sitescreen', latitude, longitude)
   } 
@@ -32,7 +32,7 @@ export default class SitesScreen extends React.Component  {
   async loadLocationData() {
     this.setState({isLoading : true}) //while it's loading the location data
     console.log('line 34 isLoading is', this.state.isLoading)
-    const endpoint = "https://b0350b2d0e31.ngrok.io/";
+    const endpoint = "https://2f993469e099.ngrok.io/";
     console.log('in site screen')
 
     // change the coords to a JSON object
@@ -56,14 +56,12 @@ export default class SitesScreen extends React.Component  {
           console.log('after loading the data, line 56 isLoading is',this.state.isLoading)
         }) //once you get data, change isLoading
       })
-      .catch(function(response) {
+      .catch((response) => {
         //handle error
         this.setState({ locationData: null}) // Clear the location data we don't have any to display
         console.log(response);
       });
   }
-
-
   // ------------------------grabs the locationData from state and displays choices---------------------------//
   renderLocation() {
     // This method returns undefined or a JSX component
@@ -125,9 +123,7 @@ export default class SitesScreen extends React.Component  {
       //return loading page
       return <ActivityIndicator size="large" color="#0000ff" />
     }
-    else {
-      this.renderLocation() //if data is recieved, display it
-    }
+    return this.renderLocation() //if data is recieved, display it
   }
 
   // -------------------------when the components mounts,--------------------------------------------// 
