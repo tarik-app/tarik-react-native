@@ -24,6 +24,7 @@ export default function QuestionScreen({ route, navigation }) {
     console.log(desc.split('.')[1])
     return(
       <CheckBox
+        key={`${question}-${index}`}
         title={question} //the second sentence of each description will be displayed
         checkedIcon='dot-circle-o'
         uncheckedIcon='circle-o'

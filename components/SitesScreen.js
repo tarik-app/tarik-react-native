@@ -32,7 +32,7 @@ export default class SitesScreen extends React.Component  {
   async loadLocationData() {
     this.setState({isLoading : true}) //while it's loading the location data
     console.log('line 34 isLoading is', this.state.isLoading)
-    const endpoint = "https://b0350b2d0e31.ngrok.io";
+    const endpoint = "https://2f993469e099.ngrok.io";
     console.log('in site screen')
 
     // change the coords to a JSON object
@@ -62,6 +62,11 @@ export default class SitesScreen extends React.Component  {
         let parsed = data.map((json) => {
           return JSON.parse(json)
         })
+        //change the array to a set, to handle exceptions of duplicates.......not working!
+        parsed = new Set(parsed)
+        console.log('parsed set',par.size)
+        parsed = Array.from(parsed)
+        console.log('place numbers',parsed.length)
 
         // get the place id, (unique id for each places)
         //to then use it to access the name of each place
@@ -78,6 +83,7 @@ export default class SitesScreen extends React.Component  {
           return (
             // <Text>{title}</Text>
             <TouchableHighlight
+              key={index}
               style={styles.location}
               onPress={() => this.props.navigation.navigate('Question', {title, description, parsed, places_id})}
               // pass the data we get for each individual item to the questions page
