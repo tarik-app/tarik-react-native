@@ -1,4 +1,4 @@
-import { StyleSheet, Text, Button, SafeAreaView, TouchableHighlight, ScrollView  } from 'react-native';
+import { StyleSheet, Text, Button, SafeAreaView, TouchableHighlight, ScrollView, ActivityIndicator  } from 'react-native';
 import React from 'react';
 import LocationBtn from './LocationBtn'
 import data from '../data.json'
@@ -13,15 +13,15 @@ export default class SitesScreen extends React.Component  {
     const {latitude, longitude} = direction
     this.state = {
       data: null,
-      isLoading: false, //to check if data is still being loaded or already loaded
+      isLoading: true, //to check if data is still being loaded or already loaded
       latitude,
       longitude,
       locations : [],
-      place_names : []
+      place_names : [],
+      locationData: null,  // Used to hold data loaded from the weather API
     }
     console.log('sitescreen', latitude, longitude)
-  } //props.navigation
-    // ({ navigation })
+  } 
     
   // right before the component mounts
 
@@ -52,61 +52,79 @@ export default class SitesScreen extends React.Component  {
       headers: {'Content-Type': 'application/json' }
       })
       .then((response) => {
-        this.setState({isLoading: false}, () => {
+        this.setState({isLoading: false, locationData: response.data}, () => {
           console.log('after loading the data, line 56 isLoading is',this.state.isLoading)
         }) //once you get data, change isLoading
-
-        //handle success
-        let data = response.data
-        // // loops through the response array and parses each into json data
-        let parsed = data.map((json) => {
-          return JSON.parse(json)
-        })
-
-        // get the place id, (unique id for each places)
-        //to then use it to access the name of each place
-        let places_id = parsed.map((place) => {
-          return Object.keys(place.query.pages)
-        })
-
-        // loop over the parsed data and apply the keys to get
-        //the title of th place
-        let place_names = parsed.map((place, index) => {
-          console.log(place)
-          const title = place.query.pages[places_id[index]].title
-          const description = place.query.pages[places_id[index]].extract
-          return (
-            // <Text>{title}</Text>
-            <TouchableHighlight
-              style={styles.location}
-              onPress={() => this.props.navigation.navigate('Question', {title, description, parsed, places_id})}
-              // pass the data we get for each individual item to the questions page
-            >
-              <Icon.Button
-                // style={styles.location}
-                // iconStyle = {styles.location}
-                name="location-arrow"
-                backgroundColor="#B90551"
-                onPress={() => this.props.navigation.navigate('Question', {title, description, parsed, places_id})}
-              >
-                {title}
-              </Icon.Button>
-            {/* <LocationBtn key={item['id']} title={item.title} />   */}
-            </TouchableHighlight>
-          
-        )})
-
-        //update state of place names
-        this.setState({place_names: place_names})
-        
-
       })
       .catch(function(response) {
         //handle error
+        this.setState({ locationData: null}) // Clear the location data we don't have any to display
         console.log(response);
       });
   }
 
+
+  // grabs the locationData from state and displays choices
+  renderLocation() {
+    // This method returns undefined or a JSX component
+    if (this.state.locationData === null) { //
+      // If there is no data return undefined
+      return undefined
+    }
+
+    //handle success
+    let data = this.state.locationData
+    // // loops through the response array and parses each into json data
+    let parsed = data.map((json) => {
+      return JSON.parse(json)
+    })
+
+    // get the place id, (unique id for each places)
+    //to then use it to access the name of each place
+    let places_id = parsed.map((place) => {
+      return Object.keys(place.query.pages)
+    })
+
+    // loop over the parsed data and apply the keys to get
+    //the title of th place
+    let place_names = parsed.map((place, index) => {
+      console.log(place)
+      const title = place.query.pages[places_id[index]].title
+      const description = place.query.pages[places_id[index]].extract
+      return (
+        <TouchableHighlight
+          style={styles.location}
+          onPress={() => this.props.navigation.navigate('Question', {title, description, parsed, places_id})}
+          // pass the data we get for each individual item to the questions page
+        >
+          <Icon.Button
+            // style={styles.location}
+            // iconStyle = {styles.location}
+            name="location-arrow"
+            backgroundColor="#B90551"
+            onPress={() => this.props.navigation.navigate('Question', {title, description, parsed, places_id})}
+          >
+            {title}
+          </Icon.Button>
+        {/* <LocationBtn key={item['id']} title={item.title} />   */}
+        </TouchableHighlight>
+    )})
+    return place_names //holds the name of the places as a separate button
+  }
+
+  
+  // conditionally renders either loading page or places page
+  checkRender() {
+    if (this.state.isLoading === true) {
+      //return loading page
+      return <ActivityIndicator size="large" color="#0000ff" />
+    }
+    else {
+      this.renderLocation() //if data is recieved, display it
+    }
+  }
+
+  // when the components mounts, 
   componentDidMount() {
     this.setState({isLoading : true}, () => {
       console.log('line 113 isLoading is', this.state.isLoading)
@@ -118,6 +136,7 @@ export default class SitesScreen extends React.Component  {
     return (
       <SafeAreaView style={styles.safearea}>
           <Text style={styles.text}>Here are nearby tourists sites</Text>
+          {this.checkRender()}
           <ScrollView style={styles.scroll}>
             {this.state.place_names}
           </ScrollView>
