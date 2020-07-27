@@ -28,7 +28,7 @@ export default class SitesScreen extends React.Component  {
    
   
 
-  // get the place name and map to Location btn component
+  //-------------------- get the place data and save it in a state-----------------------------//
   async loadLocationData() {
     this.setState({isLoading : true}) //while it's loading the location data
     console.log('line 34 isLoading is', this.state.isLoading)
@@ -64,7 +64,7 @@ export default class SitesScreen extends React.Component  {
   }
 
 
-  // grabs the locationData from state and displays choices
+  // ------------------------grabs the locationData from state and displays choices---------------------------//
   renderLocation() {
     // This method returns undefined or a JSX component
     if (this.state.locationData === null) { //
@@ -109,11 +109,17 @@ export default class SitesScreen extends React.Component  {
         {/* <LocationBtn key={item['id']} title={item.title} />   */}
         </TouchableHighlight>
     )})
-    return place_names //holds the name of the places as a separate button
+
+    return (
+      //holds the name of the places as a separate button
+      <ScrollView style={styles.scroll}>
+        {place_names}
+      </ScrollView>
+    ) 
   }
 
-  
-  // conditionally renders either loading page or places page
+
+  //------------------------conditionally renders either loading page or places page-----------------------//
   checkRender() {
     if (this.state.isLoading === true) {
       //return loading page
@@ -124,7 +130,7 @@ export default class SitesScreen extends React.Component  {
     }
   }
 
-  // when the components mounts, 
+  // -------------------------when the components mounts,--------------------------------------------// 
   componentDidMount() {
     this.setState({isLoading : true}, () => {
       console.log('line 113 isLoading is', this.state.isLoading)
@@ -132,14 +138,15 @@ export default class SitesScreen extends React.Component  {
     this.loadLocationData() //when the component mounts, load the location data
   }
 
+  
   render(){ 
     return (
       <SafeAreaView style={styles.safearea}>
           <Text style={styles.text}>Here are nearby tourists sites</Text>
           {this.checkRender()}
-          <ScrollView style={styles.scroll}>
-            {this.state.place_names}
-          </ScrollView>
+          {/* <ScrollView style={styles.scroll}> */}
+            {/* {this.state.place_names} */}
+          {/* </ScrollView> */}
       </SafeAreaView>
     );
   }
