@@ -10,12 +10,21 @@ export default function QuestionScreen({ route, navigation }) {
   const {title, description, parsed, places_id} = route.params //parameter passed down from sites screen
   //loop over data description and make checkboxes
   
-  const choices = parsed.map((place, index) => {
+  let choices = parsed.map((place, index) => {
     const title = place.query.pages[places_id[index]].title
     const desc = place.query.pages[places_id[index]].extract
+    // let question = desc.split('.')[1]
+    let question = desc.split(/[\.\!]+(?!\d)\s*|\n+\s*/)[1];
+    //if the description is only one sentence, 
+    question === '' ? question = desc.split(/[\.\!]+(?!\d)\s*|\n+\s*/)[0] : desc.split(/[\.\!]+(?!\d)\s*|\n+\s*/)[1];
+
+    //search the title in the question, and replace it with an empty string
+    question = question.replace(title, '')
+
+    console.log(desc.split('.')[1])
     return(
       <CheckBox
-        title={desc}
+        title={question} //the second sentence of each description will be displayed
         checkedIcon='dot-circle-o'
         uncheckedIcon='circle-o'
         containerStyle={styles.radiobtn}
@@ -27,12 +36,15 @@ export default function QuestionScreen({ route, navigation }) {
     )
   })
 
+//   choices = shuffle(choices);
+// console.log(choices);
+
   return (
       <SafeAreaView style={styles.question}>
           <Text style={styles.placename}>You have chosen {title}!</Text>
           <Text style={styles.quest}>What is this site known for?</Text>
           <ScrollView>
-            {choices}
+            {shuffle(choices)}
           </ScrollView>
           <TouchableHighlight
             style={styles.submitBtn}
@@ -45,6 +57,27 @@ export default function QuestionScreen({ route, navigation }) {
       </SafeAreaView>
   );
 }
+
+//-------a function to shuffle the choices for the each question, uses fisher-yates shuffle algorithm----------//
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
+
 
 const styles = StyleSheet.create({
   question : { 
