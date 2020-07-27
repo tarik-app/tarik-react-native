@@ -32,7 +32,7 @@ export default class SitesScreen extends React.Component  {
   async loadLocationData() {
     this.setState({isLoading : true}) //while it's loading the location data
     console.log('line 34 isLoading is', this.state.isLoading)
-    const endpoint = " https://06c68b06a13a.ngrok.io/location";
+    const endpoint = "https://b0350b2d0e31.ngrok.io";
     console.log('in site screen')
 
     // change the coords to a JSON object
