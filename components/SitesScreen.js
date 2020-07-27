@@ -32,7 +32,7 @@ export default class SitesScreen extends React.Component  {
   async loadLocationData() {
     this.setState({isLoading : true}) //while it's loading the location data
     console.log('line 34 isLoading is', this.state.isLoading)
-    const endpoint = "https://2f993469e099.ngrok.io";
+    const endpoint = "https://ad9799978607.ngrok.io";
     console.log('in site screen')
 
     // change the coords to a JSON object
@@ -64,7 +64,7 @@ export default class SitesScreen extends React.Component  {
         })
         //change the array to a set, to handle exceptions of duplicates.......not working!
         parsed = new Set(parsed)
-        console.log('parsed set',par.size)
+        // console.log('parsed set',par.size)
         parsed = Array.from(parsed)
         console.log('place numbers',parsed.length)
 
