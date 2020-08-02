@@ -1,4 +1,4 @@
-import { StyleSheet, Text, Button, SafeAreaView, TouchableHighlight, ScrollView, ActivityIndicator  } from 'react-native';
+import { StyleSheet, Text, Button, SafeAreaView, TouchableHighlight, ScrollView, ActivityIndicator, View  } from 'react-native';
 import React from 'react';
 import LocationBtn from './LocationBtn'
 import data from '../data.json'
@@ -26,13 +26,11 @@ export default class SitesScreen extends React.Component  {
   // right before the component mounts
 
    
-  
-
   //-------------------- get the place data and save it in a state-----------------------------//
   async loadLocationData() {
     this.setState({isLoading : true}) //while it's loading the location data
     console.log('line 34 isLoading is', this.state.isLoading)
-    const endpoint = "https://2f993469e099.ngrok.io/";
+    const endpoint = "https://89e67a83750c.ngrok.io";
     console.log('in site screen')
 
     // change the coords to a JSON object
@@ -62,6 +60,7 @@ export default class SitesScreen extends React.Component  {
         console.log(response);
       });
   }
+
   // ------------------------grabs the locationData from state and displays choices---------------------------//
   renderLocation() {
     // This method returns undefined or a JSX component
@@ -109,10 +108,13 @@ export default class SitesScreen extends React.Component  {
     )})
 
     return (
-      //holds the name of the places as a separate button
-      <ScrollView style={styles.scroll}>
-        {place_names}
-      </ScrollView>
+      <View>
+        <Text style={styles.text}>Here are nearby tourists sites</Text>
+        {/* //holds the name of the places as a separate button */}
+        <ScrollView style={styles.scroll}>
+          {place_names}
+        </ScrollView>
+      </View>
     ) 
   }
 
@@ -138,7 +140,7 @@ export default class SitesScreen extends React.Component  {
   render(){ 
     return (
       <SafeAreaView style={styles.safearea}>
-          <Text style={styles.text}>Here are nearby tourists sites</Text>
+          
           {this.checkRender()}
           {/* <ScrollView style={styles.scroll}> */}
             {/* {this.state.place_names} */}
@@ -178,6 +180,7 @@ const styles = StyleSheet.create({
   text: {
     marginTop: 30,
     fontSize: 25,
-    fontWeight: "300"
+    fontWeight: "300",
+    paddingLeft: '15%',
   }
 })
