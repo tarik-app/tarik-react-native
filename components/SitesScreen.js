@@ -90,6 +90,7 @@ export default class SitesScreen extends React.Component  {
       const description = place.query.pages[places_id[index]].extract
       return (
         <TouchableHighlight
+          key={index}
           style={styles.location}
           onPress={() => this.props.navigation.navigate('Question', {title, description, parsed, places_id})}
           // pass the data we get for each individual item to the questions page
