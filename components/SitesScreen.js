@@ -30,7 +30,7 @@ export default class SitesScreen extends React.Component  {
   async loadLocationData() {
     this.setState({isLoading : true}) //while it's loading the location data
     console.log('line 34 isLoading is', this.state.isLoading)
-    const endpoint = "https://89e67a83750c.ngrok.io";
+    const endpoint = "https://67f0df5dc1e6.ngrok.io";
     console.log('in site screen')
 
     // change the coords to a JSON object
@@ -124,7 +124,7 @@ export default class SitesScreen extends React.Component  {
   checkRender() {
     if (this.state.isLoading === true) {
       //return loading page
-      return <ActivityIndicator size="large" color="#0000ff" />
+      return <ActivityIndicator size="large" color="#B90551" />
     }
     return this.renderLocation() //if data is recieved, display it
   }

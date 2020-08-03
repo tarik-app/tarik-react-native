@@ -1,12 +1,12 @@
 import { StyleSheet, Text, Button, SafeAreaView,TouchableHighlight, ScrollView  } from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useEffect, useMemo} from 'react';
 import data from '../data.json'
 import { CheckBox } from 'react-native-elements'
 
 // currently displays title, description and image on the question screen
 export default function QuestionScreen({ route, navigation }) {
   const [check, setCheck] = useState(1); 
-
+  let [shuffleChoices, setChoices] = useState([]);
   const {title, description, parsed, places_id} = route.params //parameter passed down from sites screen
   //loop over data description and make checkboxes
   
@@ -30,17 +30,28 @@ export default function QuestionScreen({ route, navigation }) {
         checkedColor='#B90551'
         // to make only one item checked...
         checked={check === desc}
-        onPress = {() => setCheck(desc)}
+        onPress = {() => {setCheck(desc); console.log('getting pressed')}}
       />
     )
   })
 
+  //when the component mounts, shuffle the array....having error here!
+  useEffect(() => {
+    // choices = shuffle(choices);
+    setChoices(shuffle(choices))
+    console.log(choices)
+  }, []); //empty array to avoid infinitely calling shuffle
+  // let shuffledChoices = useMemo(() => {
+  //   // const numbers = [1, 2, 3, 1, 2, 3];  
+  //   return shuffle(choices);
+  // }, [])
+  
   return (
       <SafeAreaView style={styles.question}>
           <Text style={styles.placename}>You have chosen {title}!</Text>
-          <Text style={styles.quest}>What is this site known for?</Text>
+          <Text style={styles.quest}>Q: What is this site known for?</Text>
           <ScrollView>
-            {shuffle(choices)}
+            {choices}
           </ScrollView>
           <TouchableHighlight
             style={styles.submitBtn}
@@ -70,7 +81,6 @@ function shuffle(array) {
     array[currentIndex] = array[randomIndex];
     array[randomIndex] = temporaryValue;
   }
-
   return array;
 }
 
@@ -87,19 +97,19 @@ const styles = StyleSheet.create({
     fontWeight: '300'
   },
   quest: {
-    marginTop: 40,
+    marginTop: 20,
     fontSize: 25,
-    fontWeight: '300',
+    fontWeight: 'bold',
     color: '#B90551'
   },
   radiobtn: {
     width: 350,
     backgroundColor: '#f2e1e8',
-    borderColor: 'black'
+    borderColor: '#B90551',
   },
   submitBtn : {
     marginLeft: 190,
-    marginTop: 40,
+    marginTop: 20,
     marginBottom: 25,
     display: 'flex',
     justifyContent: 'center',

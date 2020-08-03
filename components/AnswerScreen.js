@@ -4,7 +4,7 @@ import React from 'react';
 export default function AnswerScreen({ navigation, route }) {
   const {answer, desc} = route.params
   const answerText = answer ? 'Correct': 'Incorrect'
-  const answerStyle = answer ? {color: 'blue'} : {color: 'green'}
+  const answerStyle = answer ? {color: 'green'} : {color: 'red'}
   return (
 
       <SafeAreaView style={styles.container}>
@@ -35,11 +35,11 @@ const styles = StyleSheet.create({
   },
   answer: {
     fontSize: 30,
-    marginTop: 50
+    marginTop: 30
   },
   homeBtn : {
-    marginTop: 40,
-    marginBottom: 25,
+    marginTop: 15,
+    marginBottom: 20,
     display: 'flex',
     justifyContent: 'center',
     borderRadius: 50,
@@ -66,6 +66,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#B90551'
   },
   description: {
+    fontSize: 18,
     marginLeft: 10,
     marginRight: 10,
     margin: 10,

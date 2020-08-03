@@ -8,9 +8,6 @@ import SitesScreen from './components/SitesScreen'
 import QuestionScreen from './components/QuestionScreen'
 import AnswerScreen from './components/AnswerScreen'
 
-// import Geolocation from '@react-native-community/geolocation';
-
-
 
 const Stack = createStackNavigator();
 export default function App() {
@@ -25,7 +22,7 @@ export default function App() {
           headerTintColor: '#B90551',
           headerTitleStyle: {
             fontWeight: 'bold',
-            
+            fontSize: 25
           },
         }}
       >
