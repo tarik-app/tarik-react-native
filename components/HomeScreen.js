@@ -1,8 +1,5 @@
 import { StyleSheet, Text, View, Image, SafeAreaView, TouchableHighlight } from 'react-native';
 import React, { Component, useState } from 'react';
-// import WS from 'react-native-websocket'
-
-// import Geolocation from '@react-native-community/geolocation';
 
 export default function HomeScreen({ navigation }) {
   [direction, setDirection] = useState({latitude:0, longitude:0})
@@ -25,19 +22,11 @@ export default function HomeScreen({ navigation }) {
               navigator.geolocation.getCurrentPosition((position) => {
    
                 setDirection({latitude: position.coords.latitude, longitude: position.coords.longitude})
-                // console.log(this.state.longitude)
-                // console.log(this.state.latitude)
-                // console.log('home screen direction')
                 console.log('in navigation async', direction)
 
                   navigation.navigate('Sites', {direction})
                 }   
               )
-            // } else { 
-            //   console.log('what the heck')
-            //   return "Geolocation is not supported by this browser.";
-            // }
-          
         }
         }> 
 
@@ -102,36 +91,3 @@ const styles = StyleSheet.create({
 		margin: 10
   }
 })
-
-
-
-// import { Alert, TouchableOpacity } from 'react-native';
-
-// export class Location extends Component {
-// 	state = {
-// 		location: null
-// 	};
-
-// 	findCoordinates = () => {
-// 		navigator.geolocation.getCurrentPosition(
-// 			position => {
-// 				const location = JSON.stringify(position);
-
-// 				this.setState({ location });
-// 			},
-// 			error => Alert.alert(error.message),
-// 			{ enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
-// 		);
-// 	};
-
-// 	render() {
-// 		return (
-// 			<View style={styles.container}>
-// 				<TouchableOpacity onPress={this.findCoordinates}>
-// 					<Text style={styles.welcome}>Find My Coords?</Text>
-// 					<Text>Location: {this.state.location}</Text>
-// 				</TouchableOpacity>
-// 			</View>
-// 		);
-// 	}
-// }
