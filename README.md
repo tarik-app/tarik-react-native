@@ -1,7 +1,9 @@
 
 # Tarik Mobile
 
-Tarik is a location-based guessing game.  
+![Tarik Logo](assets/tarik-location-logo.png "tarik logo")
+
+Tarik is a location-based guessing game. It is dependent of the longitude and latitude of a user’s location to generate a historical quiz based on nearby tourist site. 
 
 ## Getting Started
 
