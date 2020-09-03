@@ -9,6 +9,10 @@ Tarik is a location-based guessing game. It is dependent of the longitude and la
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
+## Project Status
+
+This project is still not fully done. More iterations and features coming up...
+
 ### Prerequisites
 
 - React Native
