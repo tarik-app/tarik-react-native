@@ -5,22 +5,22 @@
 
 Tarik is a location-based guessing game. It is dependent of the longitude and latitude of a user’s location to generate a historical quiz based on nearby tourist site. 
 
-## Getting Started
+## Getting Started 🚀
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-## Project Status
+## Project Status ✨
 
 This project is still not fully done. More iterations and features coming up...
 
-### Prerequisites
+### Prerequisites 
 
 - React Native
 - JavaScript knowledge
 - [Download Expo](https://expo.io/) app on your phone to run the app simulation on your phone
 
 
-### Installing
+### Installing 📲
 
 > To get started...
 
@@ -31,7 +31,7 @@ This project is still not fully done. More iterations and features coming up...
 - **Option 2**
     - 👯 Clone this repo to your local machine using `https://github.com/tarik-app/tarik-react-native.git`
 
-### Quick Start
+### Quick Start 🎬
 
 Get up and running with Tarik sample app:
 
@@ -55,7 +55,7 @@ and other props. `TouchableHighlight` makes it really easy to build nice buttons
 via `onPress`, which plays nicely with scroll views and other interactions via
 the responder system.
 
-## Built With
+## Built With 🏗
 
 * [React Native](https://reactnative.dev/) 
 
