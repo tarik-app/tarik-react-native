@@ -1,6 +1,5 @@
 import { StyleSheet, Text, Button, SafeAreaView,TouchableHighlight, ScrollView  } from 'react-native';
 import React, {useState, useEffect, useMemo} from 'react';
-import data from '../data.json'
 import { CheckBox } from 'react-native-elements'
 
 // currently displays title, description and image on the question screen

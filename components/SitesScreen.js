@@ -1,14 +1,16 @@
-import { StyleSheet, Text, Button, SafeAreaView, TouchableHighlight, ScrollView, ActivityIndicator, View  } from 'react-native';
+import { StyleSheet, Text, SafeAreaView, TouchableHighlight, ScrollView, ActivityIndicator, View  } from 'react-native';
 import React from 'react';
 import LocationBtn from './LocationBtn'
-import data from '../data.json'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 
+/*
+  Sites Screen: Displays all the nearby sites (locations). 
+*/
 export default class SitesScreen extends React.Component  {
-  // and get the data from calling the route and display it(list of locations with their data) here...
   constructor(props){
     super(props)
+    // get the direction (latitude and longitude from the Home Screen)
     const {direction} = this.props.route.params
     const {latitude, longitude} = direction
     this.state = {
@@ -20,29 +22,27 @@ export default class SitesScreen extends React.Component  {
       place_names : [],
       locationData: null,  // Used to hold data loaded from the location API/backend
     }
-    console.log('sitescreen', latitude, longitude)
   } 
-    
-  // right before the component mounts
+  
+  // -------------------------when the components mounts--------------------------------------------// 
+  componentDidMount() {
+    this.setState({isLoading : true}, () => {
+      console.log('line 30 isLoading is', this.state.isLoading)
+    }) //while it's loading the location data
+    this.loadLocationData() //when the component mounts, load the location data
+  }
 
-   
   //-------------------- get the place data and save it in a state-----------------------------//
   async loadLocationData() {
     this.setState({isLoading : true}) //while it's loading the location data
-    console.log('line 34 isLoading is', this.state.isLoading)
     const endpoint = "https://67f0df5dc1e6.ngrok.io";
-    console.log('in site screen')
 
     // change the coords to a JSON object
     let coords = JSON.stringify({
       latit: this.state.latitude,
       longi: this.state.longitude
     })
-    console.log('coords',coords)
-    // console.log(coords['latitude'])
     
-    console.log('direction from home screen')
-  
     await axios({
       method: 'post',
       url: endpoint,
@@ -50,9 +50,11 @@ export default class SitesScreen extends React.Component  {
       headers: {'Content-Type': 'application/json' }
       })
       .then((response) => {
+        // get the data for the locations
+        //once you get data, change isLoading to false
         this.setState({isLoading: false, locationData: response.data}, () => {
           console.log('after loading the data, line 56 isLoading is',this.state.isLoading)
-        }) //once you get data, change isLoading
+        }) 
       })
       .catch((response) => {
         //handle error
@@ -61,7 +63,7 @@ export default class SitesScreen extends React.Component  {
       });
   }
 
-  // ------------------------grabs the locationData from state and displays choices---------------------------//
+  // ------------------------grabs the locationData from state and return location choices---------------------------//
   renderLocation() {
     // This method returns undefined or a JSX component
     if (this.state.locationData === null) { //
@@ -71,7 +73,7 @@ export default class SitesScreen extends React.Component  {
 
     //handle success
     let data = this.state.locationData
-    // // loops through the response array and parses each into json data
+    // loops through the response array and parses each into json data
     let parsed = data.map((json) => {
       return JSON.parse(json)
     })
@@ -83,7 +85,7 @@ export default class SitesScreen extends React.Component  {
     })
 
     // loop over the parsed data and apply the keys to get
-    //the title of th place
+    //the title of the place
     let place_names = parsed.map((place, index) => {
       console.log(place)
       const title = place.query.pages[places_id[index]].title
@@ -92,12 +94,10 @@ export default class SitesScreen extends React.Component  {
         <TouchableHighlight
           key={index}
           style={styles.location}
+          // pass the data we get for each individual item to the questions screen
           onPress={() => this.props.navigation.navigate('Question', {title, description, parsed, places_id})}
-          // pass the data we get for each individual item to the questions page
         >
           <Icon.Button
-            // style={styles.location}
-            // iconStyle = {styles.location}
             name="location-arrow"
             backgroundColor="#B90551"
             onPress={() => this.props.navigation.navigate('Question', {title, description, parsed, places_id})}
@@ -106,12 +106,15 @@ export default class SitesScreen extends React.Component  {
           </Icon.Button>
         {/* <LocationBtn key={item['id']} title={item.title} />   */}
         </TouchableHighlight>
-    )})
+      )
+    })
 
     return (
       <View>
-        <Text style={styles.text}>Here are nearby tourists sites</Text>
-        {/* //holds the name of the places as a separate button */}
+        <Text 
+          style={styles.text}>Here are nearby tourists sites
+        </Text>
+        {/* holds the name of the places as a separate button */}
         <ScrollView style={styles.scroll}>
           {place_names}
         </ScrollView>
@@ -119,8 +122,7 @@ export default class SitesScreen extends React.Component  {
     ) 
   }
 
-
-  //------------------------conditionally renders either loading page or places page-----------------------//
+  //------------------------conditionally renders either loading page or list of places page-----------------------//
   checkRender() {
     if (this.state.isLoading === true) {
       //return loading page
@@ -129,23 +131,10 @@ export default class SitesScreen extends React.Component  {
     return this.renderLocation() //if data is recieved, display it
   }
 
-  // -------------------------when the components mounts,--------------------------------------------// 
-  componentDidMount() {
-    this.setState({isLoading : true}, () => {
-      console.log('line 113 isLoading is', this.state.isLoading)
-    }) //while it's loading the location data
-    this.loadLocationData() //when the component mounts, load the location data
-  }
-
-
-  render(){ 
+  render() { 
     return (
-      <SafeAreaView style={styles.safearea}>
-          
+      <SafeAreaView style={styles.safearea}>         
           {this.checkRender()}
-          {/* <ScrollView style={styles.scroll}> */}
-            {/* {this.state.place_names} */}
-          {/* </ScrollView> */}
       </SafeAreaView>
     );
   }
