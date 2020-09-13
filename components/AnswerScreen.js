@@ -1,6 +1,12 @@
 import { StyleSheet, Text, View, Button, SafeAreaView, TouchableHighlight, ScrollView } from 'react-native';
 import React from 'react';
 
+/*
+Answer Screen: Holds the logic of the answer screen.
+Displays Correct or Incorrect based on your guess on Question Screen.
+Also displays correct answer and description.
+*/
+
 export default function AnswerScreen({ navigation, route }) {
   const {answer, desc} = route.params
   const answerText = answer ? 'Correct': 'Incorrect'
