@@ -1,46 +1,45 @@
 import { StyleSheet, Text, View, Image, SafeAreaView, TouchableHighlight } from 'react-native';
-import React, { Component, useState } from 'react';
+import React, {useState} from 'react';
 
+/*
+  Home Screen: The landing page of the game. 
+  This is also where location will be grabbed from the user's phone.
+*/
 export default function HomeScreen({ navigation }) {
   [direction, setDirection] = useState({latitude:0, longitude:0})
   return (
+    <SafeAreaView style={styles.home}>
+      <View style={styles.logo}>
+        <Image 
+          style={styles.image}
+          source= {require('../assets/tarik-location-logo.png')}
+        />
+        <Text style={styles.logotext}>ታሪክ</Text>
+      </View>
 
-      <SafeAreaView style={styles.home}>
-        <View style={styles.logo}>
-          <Image 
-            style={styles.image}
-            source= {require('../assets/tarik-location-logo.png')}
-          />
-          <Text style={styles.logotext}>ታሪክ</Text>
-        </View>
+      <Text style={styles.text}>Learn as you go</Text>
 
-        <Text style={styles.text}>Learn as you go</Text>
-        {/* button play */}
-        {/* when play is clicked, activate websocket,  */}
-
-        <TouchableHighlight style = {styles.playBtn} onPress= {() => {
-              navigator.geolocation.getCurrentPosition((position) => {
-   
-                setDirection({latitude: position.coords.latitude, longitude: position.coords.longitude})
-                console.log('in navigation async', direction)
-
-                  navigation.navigate('Sites', {direction})
-                }   
-              )
+      {/* button play */}
+      <TouchableHighlight 
+        style = {styles.playBtn} 
+        onPress= {() => {
+          // get the current position and update state latitude and logitude
+          navigator.geolocation.getCurrentPosition((position) => {
+            setDirection({latitude: position.coords.latitude, longitude: position.coords.longitude})
+            console.log('in navigation async', direction)
+            // send direction to the Site screen
+            navigation.navigate('Sites', {direction})
+          }   
+          )
         }
-        }> 
-
-          <Text style = {styles.btnText}>
-           PLAY
-          </Text>
-        </TouchableHighlight >
-      </SafeAreaView>
+      }> 
+        <Text style = {styles.btnText}>
+          PLAY
+        </Text>
+      </TouchableHighlight >
+    </SafeAreaView>
   );
 }
-
-
-
-
 
 const styles = StyleSheet.create({
   home : { 
