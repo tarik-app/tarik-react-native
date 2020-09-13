@@ -11,7 +11,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ## Project Status ✨
 
-This project is still not fully done. More iterations and features coming up...
+ ⚠️ This project is still a working progress. More iterations and features coming up... ⚠️
 
 ### Prerequisites 
 
